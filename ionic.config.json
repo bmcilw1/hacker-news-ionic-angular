@@ -1,0 +1,8 @@
+{
+  "name": "hacker-news-ionic-angular",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "a4457a3a"
+}
