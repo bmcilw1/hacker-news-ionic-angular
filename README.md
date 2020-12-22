@@ -4,13 +4,17 @@ This is an ongoing implementation of [Hacker News](https://news.ycombinator.com/
 
 ## Getting started
 
-1. If needed, install ionic cli `npm install -g @ionic/cli`
-2. If needed, install ionic launch image resource `npm install -g cordova-res`
-3. Clone this repo
-4. Install project packages in root project directory `npm install`
+1. Install Ionic cli `npm install -g @ionic/cli`
+2. Install Angular cli `npm install -g @angular/cli`
+3. Install Ionic launch image resource `npm install -g cordova-res`
+4. Clone this repo
+5. Install project packages in root project directory `npm install`
 
 ## Running the project
 
 * Run with `ionic serve`
 
 ## Running tests
+
+* Run unit tests with `ng test`
+* Run end to end tests with `ng e2e`
