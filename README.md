@@ -16,5 +16,5 @@ This is an ongoing implementation of [Hacker News](https://news.ycombinator.com/
 
 ## Running tests
 
-* Run unit tests with `ng test`
-* Run end to end tests with `ng e2e`
+* Run unit tests with `npm run test`
+* Run end to end tests with `npm run e2e`
