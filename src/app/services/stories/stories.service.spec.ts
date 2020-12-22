@@ -13,4 +13,8 @@ describe('StoriesService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should define getTopStories', () => {
+    expect(service.getTopStories).toBeDefined();
+  });
 });
