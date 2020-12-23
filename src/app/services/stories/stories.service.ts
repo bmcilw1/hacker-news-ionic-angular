@@ -17,7 +17,7 @@ export class StoriesService {
     return this.httpClient.get<Array<number>>(url).pipe(retry(2));
   }
 
-  private mapItemIdToItem$(itemId: number): Observable<Item> {
+  public getItemById$(itemId: number): Observable<Item> {
     const url = `${this.BASE_URL}/item/${itemId}.json`;
     return this.httpClient.get<Item>(url).pipe(retry(2));
   }
@@ -26,7 +26,7 @@ export class StoriesService {
     return this.getTopStoryIds$(limitTopNStories).pipe(
       switchMap(ids =>
         forkJoin(
-          ids.map(id => this.mapItemIdToItem$(id))
+          ids.map(id => this.getItemById$(id))
         )
       )
     );
