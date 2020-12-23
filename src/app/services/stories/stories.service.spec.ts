@@ -43,10 +43,10 @@ describe('StoriesService', () => {
       }
     );
 
-    const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories?orderBy="$key"&limitToFirst=${n}`);
+    const reqTopStories = httpMock.expectOne(`${service.topStoriesUrl + service.jsonUrlSpecifier}?${service.limitToFirstUrlSpecifier + n}`);
     reqTopStories.flush(items.map(i => i.id));
 
-    const reqIdToItem = httpMock.expectOne(`${service.baseUrl}/item/${items[0].id}`);
+    const reqIdToItem = httpMock.expectOne(`${service.itemUrl}/${items[0].id + service.jsonUrlSpecifier}`);
     reqIdToItem.flush(items[0]);
   });
 
@@ -66,11 +66,11 @@ describe('StoriesService', () => {
       }
     );
 
-    const reqTopStories = httpMock.expectOne(`${service.topStoriesUrl}?${service.limitToFirstUrlSpecifier + n}`);
+    const reqTopStories = httpMock.expectOne(`${service.topStoriesUrl + service.jsonUrlSpecifier}?${service.limitToFirstUrlSpecifier + n}`);
     reqTopStories.flush(items.map(i => i.id));
 
     items.forEach(item => {
-      const reqIdToItem = httpMock.expectOne(`${service.itemUrl}/${item.id}`);
+      const reqIdToItem = httpMock.expectOne(`${service.itemUrl}/${item.id + service.jsonUrlSpecifier}`);
       reqIdToItem.flush(item);
     });
   });
@@ -86,15 +86,13 @@ describe('StoriesService', () => {
 
     service.getTopStories$(n).subscribe();
 
-    const reqTopStories = httpMock.expectOne(`${service.topStoriesUrl}?${service.limitToFirstUrlSpecifier + n}`);
+    const reqTopStories = httpMock.expectOne(`${service.topStoriesUrl + service.jsonUrlSpecifier}?${service.limitToFirstUrlSpecifier + n}`);
     expect(reqTopStories.request.method).toBe("GET");
-    expect(reqTopStories.request.headers.get("Content-Type")).toBe("application/json");
     reqTopStories.flush(items.map(i => i.id));
 
     items.forEach(item => {
-      const reqIdToItem = httpMock.expectOne(`${service.itemUrl}/${item.id}`);
+      const reqIdToItem = httpMock.expectOne(`${service.itemUrl}/${item.id + service.jsonUrlSpecifier}`);
       expect(reqIdToItem.request.method).toBe("GET");
-      expect(reqIdToItem.request.headers.get("Content-Type")).toBe("application/json");
       reqIdToItem.flush(item);
     });
   });

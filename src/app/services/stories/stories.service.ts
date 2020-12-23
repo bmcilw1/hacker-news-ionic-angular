@@ -12,23 +12,18 @@ export class StoriesService {
   public topStoriesUrl: string = `${this.baseUrl}/topstories`;
   public itemUrl: string = `${this.baseUrl}/item`;
   public limitToFirstUrlSpecifier: string = `orderBy="$key"&limitToFirst=`;
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+  public jsonUrlSpecifier: string = `.json`;
 
   constructor(private httpClient: HttpClient) { }
 
   private getTopStoryIds$(limitTopNStories: number): Observable<Array<number>> {
-    const url = `${this.topStoriesUrl}?${limitTopNStories > 0 ? this.limitToFirstUrlSpecifier + limitTopNStories : ''}`;
-    return this.httpClient.get<Array<number>>(url, this.httpOptions).pipe(retry(2));
+    const url = `${this.topStoriesUrl + this.jsonUrlSpecifier}?${limitTopNStories > 0 ? this.limitToFirstUrlSpecifier + limitTopNStories : ''}`;
+    return this.httpClient.get<Array<number>>(url).pipe(retry(2));
   }
 
   public getItemById$(itemId: number): Observable<Item> {
-    const url = `${this.itemUrl}/${itemId}`;
-    return this.httpClient.get<Item>(url, this.httpOptions).pipe(retry(2));
+    const url = `${this.itemUrl}/${itemId + this.jsonUrlSpecifier}`;
+    return this.httpClient.get<Item>(url).pipe(retry(2));
   }
 
   public getTopStories$(limitTopNStories: number = 10): Observable<Array<Item>> {
