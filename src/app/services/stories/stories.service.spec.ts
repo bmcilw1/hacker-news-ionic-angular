@@ -75,7 +75,7 @@ describe('StoriesService', () => {
     });
   });
 
-  it('should correctly set headers and urls', done => {
+  it('should correctly set headers and urls', () => {
     const items = [{
       id: 11010
     } as Item,
@@ -84,12 +84,7 @@ describe('StoriesService', () => {
     } as Item];
     const n = 2;
 
-    service.getTopStories$(n).subscribe(
-      stories => {
-        expect(stories).toEqual(items);
-        done();
-      }
-    );
+    service.getTopStories$(n).subscribe();
 
     const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories?orderBy="$key"&limitToFirst=${n}`);
     expect(reqTopStories.request.method).toBe("GET");
