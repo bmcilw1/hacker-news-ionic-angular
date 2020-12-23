@@ -44,17 +44,38 @@ describe('StoriesService', () => {
     );
 
     const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories?orderBy="$key"&limitToFirst=${n}`);
-    expect(reqTopStories.request.method).toBe("GET");
-    expect(reqTopStories.request.headers.get("Content-Type")).toBe("application/json");
     reqTopStories.flush(items.map(i => i.id));
 
     const reqIdToItem = httpMock.expectOne(`${service.baseUrl}/item/${items[0].id}`);
-    expect(reqIdToItem.request.method).toBe("GET");
-    expect(reqIdToItem.request.headers.get("Content-Type")).toBe("application/json");
     reqIdToItem.flush(items[0]);
   });
 
   it('should map ids to stories correctly when multiple items requested', done => {
+    const items = [{
+      id: 11010
+    } as Item,
+    {
+      id: 10002
+    } as Item];
+    const n = 2;
+
+    service.getTopStories$(n).subscribe(
+      stories => {
+        expect(stories).toEqual(items);
+        done();
+      }
+    );
+
+    const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories?orderBy="$key"&limitToFirst=${n}`);
+    reqTopStories.flush(items.map(i => i.id));
+
+    items.forEach(item => {
+      const reqIdToItem = httpMock.expectOne(`${service.baseUrl}/item/${item.id}`);
+      reqIdToItem.flush(item);
+    });
+  });
+
+  it('should correctly set headers and urls', done => {
     const items = [{
       id: 11010
     } as Item,
