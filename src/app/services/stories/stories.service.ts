@@ -13,7 +13,7 @@ export class StoriesService {
   constructor(private httpClient: HttpClient) { }
 
   private getTopStoryIds$(limitTopNStories: number): Observable<Array<number>> {
-    var url = `${this.BASE_URL}/topstories.json?orderBy="$key"&limitToFirst=${limitTopNStories}`;
+    const url = `${this.BASE_URL}/topstories.json?orderBy="$key"&limitToFirst=${limitTopNStories}`;
     return this.httpClient.get(url)
       .pipe(
         retry(2),
@@ -22,7 +22,7 @@ export class StoriesService {
   }
 
   private mapItemIdToItem$(itemId: number): Observable<Item> {
-    var url = `${this.BASE_URL}/item/${itemId}.json`;
+    const url = `${this.BASE_URL}/item/${itemId}.json`;
     return this.httpClient.get(url)
       .pipe(
         retry(2),
