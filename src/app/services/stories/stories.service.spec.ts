@@ -1,22 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { TestScheduler } from 'rxjs/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { StoriesService } from './stories.service';
-import { HttpClientModule } from '@angular/common/http';
+import { Item } from 'src/app/models/item.type';
 
 describe('StoriesService', () => {
   let service: StoriesService;
-  let scheduler: TestScheduler;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientTestingModule],
       providers: [StoriesService]
     });
     service = TestBed.inject(StoriesService);
-    scheduler = new TestScheduler((actual, expected) => {
-      expect(actual).toEqual(expected);
-    });
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -28,11 +27,24 @@ describe('StoriesService', () => {
   });
 
   it('should return top 1 story when called with 1', done => {
-    service.getTopStories$(1).subscribe(
+    const items = [{
+      id: 11010
+    } as Item];
+    const n = 1;
+
+    service.getTopStories$(n).subscribe(
       stories => {
-        expect(stories.length).toEqual(1);
+        expect(stories).toEqual(items);
         done();
       }
     );
+
+    const reqTopStories = httpMock.expectOne(`${service.BASE_URL}/topstories.json?orderBy="$key"&limitToFirst=${n}`);
+    expect(reqTopStories.request.method).toBe("GET");
+    reqTopStories.flush(items.map(i => i.id));
+
+    const reqItemToId = httpMock.expectOne(`${service.BASE_URL}/item/${items[0].id}.json`);
+    expect(reqItemToId.request.method).toBe("GET");
+    reqItemToId.flush(items);
   });
 });
