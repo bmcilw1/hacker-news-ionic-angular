@@ -43,12 +43,14 @@ describe('StoriesService', () => {
       }
     );
 
-    const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories.json?orderBy="$key"&limitToFirst=${n}`);
+    const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories?orderBy="$key"&limitToFirst=${n}`);
     expect(reqTopStories.request.method).toBe("GET");
+    expect(reqTopStories.request.headers.get("Content-Type")).toBe("application/json");
     reqTopStories.flush(items.map(i => i.id));
 
-    const reqIdToItem = httpMock.expectOne(`${service.baseUrl}/item/${items[0].id}.json`);
+    const reqIdToItem = httpMock.expectOne(`${service.baseUrl}/item/${items[0].id}`);
     expect(reqIdToItem.request.method).toBe("GET");
+    expect(reqIdToItem.request.headers.get("Content-Type")).toBe("application/json");
     reqIdToItem.flush(items[0]);
   });
 
@@ -68,13 +70,15 @@ describe('StoriesService', () => {
       }
     );
 
-    const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories.json?orderBy="$key"&limitToFirst=${n}`);
+    const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories?orderBy="$key"&limitToFirst=${n}`);
     expect(reqTopStories.request.method).toBe("GET");
+    expect(reqTopStories.request.headers.get("Content-Type")).toBe("application/json");
     reqTopStories.flush(items.map(i => i.id));
 
     items.forEach(item => {
-      const reqIdToItem = httpMock.expectOne(`${service.baseUrl}/item/${item.id}.json`);
+      const reqIdToItem = httpMock.expectOne(`${service.baseUrl}/item/${item.id}`);
       expect(reqIdToItem.request.method).toBe("GET");
+      expect(reqIdToItem.request.headers.get("Content-Type")).toBe("application/json");
       reqIdToItem.flush(item);
     });
   });
