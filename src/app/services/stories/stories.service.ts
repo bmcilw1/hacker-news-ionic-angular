@@ -8,9 +8,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StoriesService {
-  public BASE_URL = `https://hacker-news.firebaseio.com/v0`;
-  public TOP_STORIES_URL = `${this.BASE_URL}/topstories`;
-  public ITEM_URL = `${this.BASE_URL}/item`;
+  public BASE_URL: string = `https://hacker-news.firebaseio.com/v0`;
+  public TOP_STORIES_URL: string = `${this.BASE_URL}/topstories`;
+  public ITEM_URL: string = `${this.BASE_URL}/item`;
 
   constructor(private httpClient: HttpClient) { }
 
