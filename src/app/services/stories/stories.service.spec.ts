@@ -10,7 +10,7 @@ describe('StoriesService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(StoriesService);
-    scheduler =  new TestScheduler((actual, expected) => {
+    scheduler = new TestScheduler((actual, expected) => {
       expect(actual).toEqual(expected);
     });
   });
