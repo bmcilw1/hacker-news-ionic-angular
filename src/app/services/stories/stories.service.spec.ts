@@ -2,13 +2,17 @@ import { TestBed } from '@angular/core/testing';
 import { TestScheduler } from 'rxjs/testing';
 
 import { StoriesService } from './stories.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('StoriesService', () => {
   let service: StoriesService;
   let scheduler: TestScheduler;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [StoriesService]
+    });
     service = TestBed.inject(StoriesService);
     scheduler = new TestScheduler((actual, expected) => {
       expect(actual).toEqual(expected);
