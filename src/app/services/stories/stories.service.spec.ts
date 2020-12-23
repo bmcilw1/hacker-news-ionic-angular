@@ -18,6 +18,11 @@ describe('StoriesService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
+  afterEach(() => {
+    // After every test, assert that there are no more pending requests.
+    httpMock.verify();
+  });
+
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
