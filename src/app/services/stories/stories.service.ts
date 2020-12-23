@@ -1,7 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Item } from 'src/app/models/item.type';
 import { Observable, forkJoin } from 'rxjs';
-import { map, retry, switchMap } from 'rxjs/operators';
+import { retry, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
