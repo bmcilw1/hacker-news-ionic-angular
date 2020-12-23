@@ -43,11 +43,11 @@ describe('StoriesService', () => {
       }
     );
 
-    const reqTopStories = httpMock.expectOne(`${service.BASE_URL}/topstories.json?orderBy="$key"&limitToFirst=${n}`);
+    const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories.json?orderBy="$key"&limitToFirst=${n}`);
     expect(reqTopStories.request.method).toBe("GET");
     reqTopStories.flush(items.map(i => i.id));
 
-    const reqIdToItem = httpMock.expectOne(`${service.BASE_URL}/item/${items[0].id}.json`);
+    const reqIdToItem = httpMock.expectOne(`${service.baseUrl}/item/${items[0].id}.json`);
     expect(reqIdToItem.request.method).toBe("GET");
     reqIdToItem.flush(items[0]);
   });
@@ -68,12 +68,12 @@ describe('StoriesService', () => {
       }
     );
 
-    const reqTopStories = httpMock.expectOne(`${service.BASE_URL}/topstories.json?orderBy="$key"&limitToFirst=${n}`);
+    const reqTopStories = httpMock.expectOne(`${service.baseUrl}/topstories.json?orderBy="$key"&limitToFirst=${n}`);
     expect(reqTopStories.request.method).toBe("GET");
     reqTopStories.flush(items.map(i => i.id));
 
     items.forEach(item => {
-      const reqIdToItem = httpMock.expectOne(`${service.BASE_URL}/item/${item.id}.json`);
+      const reqIdToItem = httpMock.expectOne(`${service.baseUrl}/item/${item.id}.json`);
       expect(reqIdToItem.request.method).toBe("GET");
       reqIdToItem.flush(item);
     });

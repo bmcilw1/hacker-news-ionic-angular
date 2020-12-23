@@ -8,19 +8,21 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StoriesService {
-  public BASE_URL: string = `https://hacker-news.firebaseio.com/v0`;
-  public TOP_STORIES_URL: string = `${this.BASE_URL}/topstories`;
-  public ITEM_URL: string = `${this.BASE_URL}/item`;
+  public baseUrl: string = `https://hacker-news.firebaseio.com/v0`;
+  public topStoriesUrl: string = `${this.baseUrl}/topstories`;
+  public itemUrl: string = `${this.baseUrl}/item`;
+  public jsonUrlSpecifier: string = `.json`;
+  public limitToFirstUrlSpecifier: string = `orderBy="$key"&limitToFirst=`;
 
   constructor(private httpClient: HttpClient) { }
 
   private getTopStoryIds$(limitTopNStories: number): Observable<Array<number>> {
-    const url = `${this.TOP_STORIES_URL}.json?orderBy="$key"&limitToFirst=${limitTopNStories}`;
+    const url = `${this.topStoriesUrl}${this.jsonUrlSpecifier}?${this.limitToFirstUrlSpecifier}${limitTopNStories}`;
     return this.httpClient.get<Array<number>>(url).pipe(retry(2));
   }
 
   public getItemById$(itemId: number): Observable<Item> {
-    const url = `${this.ITEM_URL}/${itemId}.json`;
+    const url = `${this.itemUrl}/${itemId}${this.jsonUrlSpecifier}`;
     return this.httpClient.get<Item>(url).pipe(retry(2));
   }
 
