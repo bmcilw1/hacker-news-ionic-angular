@@ -14,20 +14,12 @@ export class StoriesService {
 
   private getTopStoryIds$(limitTopNStories: number): Observable<Array<number>> {
     const url = `${this.BASE_URL}/topstories.json?orderBy="$key"&limitToFirst=${limitTopNStories}`;
-    return this.httpClient.get(url)
-      .pipe(
-        retry(2),
-        map(response => response as Array<number>)
-      );
+    return this.httpClient.get<Array<number>>(url).pipe(retry(2));
   }
 
   private mapItemIdToItem$(itemId: number): Observable<Item> {
     const url = `${this.BASE_URL}/item/${itemId}.json`;
-    return this.httpClient.get(url)
-      .pipe(
-        retry(2),
-        map(response => response as Item)
-      );
+    return this.httpClient.get<Item>(url).pipe(retry(2));
   }
 
   public getTopStories$(limitTopNStories: number): Observable<Array<Item>> {
