@@ -17,7 +17,8 @@ export class StoriesService {
   constructor(private httpClient: HttpClient) { }
 
   private getTopStoryIds$(limitTopNStories: number = 10): Observable<Array<number>> {
-    const url = `${this.topStoriesUrl}${this.jsonUrlSpecifier}?${this.limitToFirstUrlSpecifier}${limitTopNStories}`;
+    const url = `${this.topStoriesUrl}${this.jsonUrlSpecifier}?
+      ${this.limitToFirstUrlSpecifier}${limitTopNStories}`;
     return this.httpClient.get<Array<number>>(url).pipe(retry(2));
   }
 
