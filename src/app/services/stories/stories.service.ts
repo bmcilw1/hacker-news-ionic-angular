@@ -16,7 +16,7 @@ export class StoriesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private getTopStoryIds$(limitTopNStories: number): Observable<Array<number>> {
+  private getTopStoryIds$(limitTopNStories: number = 10): Observable<Array<number>> {
     const url = `${this.topStoriesUrl}${this.jsonUrlSpecifier}?${this.limitToFirstUrlSpecifier}${limitTopNStories}`;
     return this.httpClient.get<Array<number>>(url).pipe(retry(2));
   }
@@ -26,7 +26,7 @@ export class StoriesService {
     return this.httpClient.get<Item>(url).pipe(retry(2));
   }
 
-  public getTopStories$(limitTopNStories: number): Observable<Array<Item>> {
+  public getTopStories$(limitTopNStories: number = 10): Observable<Array<Item>> {
     return this.getTopStoryIds$(limitTopNStories).pipe(
       switchMap(ids =>
         forkJoin(
