@@ -1,26 +1,16 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 import { ViewMessagePageRoutingModule } from './view-message-routing.module';
-
 import { ViewMessagePage } from './view-message.page';
+import { MockBuilder, MockRender } from 'ng-mocks';
+import { ActivatedRoute, ActivatedRouteSnapshot, convertToParamMap } from '@angular/router';
 
 describe('ViewMessagePage', () => {
-  let component: ViewMessagePage;
-  let fixture: ComponentFixture<ViewMessagePage>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ViewMessagePage ],
-      imports: [IonicModule.forRoot(), ViewMessagePageRoutingModule, RouterModule.forRoot([])]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(ViewMessagePage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+  beforeEach(() => MockBuilder(ViewMessagePage)
+    .mock(ActivatedRoute, {
+      snapshot: { paramMap: convertToParamMap({ id: '1' }) } as ActivatedRouteSnapshot
+    }));
 
   it('should create', () => {
+    const component = MockRender(ViewMessagePage).point.componentInstance;
     expect(component).toBeTruthy();
   });
 });
