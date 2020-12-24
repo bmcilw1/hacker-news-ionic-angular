@@ -9,6 +9,8 @@ describe('StoriesComponent', () => {
   let component: StoriesComponent;
   let fixture: ComponentFixture<StoriesComponent>;
 
+  // TODO: go back to pure angular tests using hand-configured Jasmine spies and the default Angular TestBed.
+
   beforeEach(async(() => {
     MockBuilder(StoriesComponent);
 
