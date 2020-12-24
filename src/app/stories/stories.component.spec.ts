@@ -1,9 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
 
 import { StoriesComponent } from './stories.component';
 import { MockBuilder, MockRender } from 'ng-mocks';
-import { StoriesService } from '../services/stories/stories.service';
 
 describe('StoriesComponent', () => {
   let component: StoriesComponent;
