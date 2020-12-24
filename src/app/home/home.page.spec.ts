@@ -1,26 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-import { MessageComponentModule } from '../message/message.module';
-
 import { HomePage } from './home.page';
+import { HomePageModule } from './home.module';
+import { MockBuilder, MockRender } from 'ng-mocks';
 
 describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HomePage ],
-      imports: [IonicModule.forRoot(), MessageComponentModule, RouterModule.forRoot([])]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(HomePage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+  beforeEach(() => MockBuilder(HomePage, HomePageModule));
 
   it('should create', () => {
+    const component = MockRender(HomePage).point.componentInstance;
     expect(component).toBeTruthy();
   });
 });
