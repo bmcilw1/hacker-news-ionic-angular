@@ -26,8 +26,8 @@ describe('StoriesComponent', () => {
   });
 
   it('should call storiesService.getTopStories$ once on init', () => {
-    const service = MockService(StoriesService);
-    (service as jasmine.SpyObj<StoriesService>).getTopStories$.and.returnValue(of([]));
+    const service = MockService<jasmine.SpyObj<StoriesService>>(StoriesService);
+    service.getTopStories$.and.returnValue(of([]));
     const fixture = MockRender(StoriesComponent, {}, {
       providers: [
         {
