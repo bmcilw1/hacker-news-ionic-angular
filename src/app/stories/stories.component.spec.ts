@@ -17,7 +17,7 @@ describe('StoriesComponent', () => {
     return MockBuilder(StoriesComponent, StoriesComponentModule)
       .mock(StoriesService, {
         getTopStories$: () => topStories$,
-      })
+      });
   });
 
   it('should create', () => {
@@ -44,8 +44,7 @@ describe('StoriesComponent', () => {
 
   it('should set stories returned from storiesService.getTopStories$', () => {
     const items = [{ id: 1 } as Item];
-    const fixture = MockRender(StoriesComponent);
-    const component = fixture.point.componentInstance;
+    const component = MockRender(StoriesComponent).point.componentInstance;
 
     topStories$.next(items);
 
