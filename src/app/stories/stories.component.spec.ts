@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { MockBuilder, MockProvider, MockRender } from 'ng-mocks';
+import { MockBuilder, MockProvider, MockRender, MockService } from 'ng-mocks';
 import { EMPTY, of, Subject } from 'rxjs';
 import { Item } from '../models/item.type';
 
@@ -25,17 +25,22 @@ describe('StoriesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  /*
   it('should call storiesService.getTopStories$ once on init', () => {
-    const service = TestBed.inject(StoriesService);
-    const spy = spyOn(service, 'getTopStories$');
-    const fixture = MockRender(StoriesComponent);
+    const service = MockService(StoriesService);
+    (service as jasmine.SpyObj<StoriesService>).getTopStories$.and.returnValue(of([]));
+    const fixture = MockRender(StoriesComponent, {}, {
+      providers: [
+        {
+          provide: StoriesService,
+          useValue: service,
+        },
+      ],
+    });
 
-    topStories$.next([]);
+    fixture.detectChanges();
 
-    expect(spy).toHaveBeenCalledTimes(1);
+    expect(service.getTopStories$).toHaveBeenCalledTimes(1);
   });
-  */
 
   it('should set stories returned from storiesService.getTopStories$', () => {
     const items = [{ id: 1 } as Item];

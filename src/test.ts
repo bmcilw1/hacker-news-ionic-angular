@@ -6,6 +6,7 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
+import { ngMocks } from 'ng-mocks';
 
 declare const require: any;
 
@@ -18,3 +19,5 @@ getTestBed().initTestEnvironment(
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
+
+ngMocks.autoSpy('jasmine');
