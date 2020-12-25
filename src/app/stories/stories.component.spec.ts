@@ -1,23 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockBuilder, MockRender } from 'ng-mocks';
+import { EMPTY } from 'rxjs';
+
+import { StoriesService } from '../services/stories/stories.service';
 
 import { StoriesComponent } from './stories.component';
-import { MockBuilder, MockRender } from 'ng-mocks';
+import { StoriesComponentModule } from './stories.module';
 
 describe('StoriesComponent', () => {
-  let component: StoriesComponent;
-  let fixture: ComponentFixture<StoriesComponent>;
-
-  // TODO: go back to pure angular tests using hand-configured Jasmine spies and the default Angular TestBed.
-
-  beforeEach(async(() => {
-    MockBuilder(StoriesComponent);
-
-    fixture = MockRender(StoriesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+  beforeEach(() => MockBuilder(StoriesComponent, StoriesComponentModule)
+    .mock(StoriesService, {
+      getTopStories$: () => EMPTY,
+    })
+  );
 
   it('should create', () => {
+    const component = MockRender(StoriesComponent).point.componentInstance;
     expect(component).toBeTruthy();
   });
 });
