@@ -1,5 +1,5 @@
-import { MockBuilder, MockRender, MockService } from 'ng-mocks';
-import { of, Subject } from 'rxjs';
+import { MockBuilder, MockInstance, MockRender, MockReset } from 'ng-mocks';
+import { EMPTY, Subject } from 'rxjs';
 import { Item } from '../models/item.type';
 
 import { StoriesService } from '../services/stories/stories.service';
@@ -19,33 +19,30 @@ describe('StoriesComponent', () => {
       });
   });
 
+  afterEach(MockReset);
+
   it('should create', () => {
     const component = MockRender(StoriesComponent).point.componentInstance;
     expect(component).toBeTruthy();
   });
 
   it('should call storiesService.getTopStories$ once on init', () => {
-    const service = MockService<jasmine.SpyObj<StoriesService>>(StoriesService);
-    service.getTopStories$.and.returnValue(of([]));
-    const fixture = MockRender(StoriesComponent, {}, {
-      providers: [
-        {
-          provide: StoriesService,
-          useValue: service,
-        },
-      ],
-    });
+    const getTopStories$ = jasmine.createSpy().and.returnValue(EMPTY);
+    MockInstance(StoriesService, () => ({
+      getTopStories$,
+    }));
+    const fixture = MockRender(StoriesComponent);
 
-    fixture.detectChanges();
-
-    expect(service.getTopStories$).toHaveBeenCalledTimes(1);
+    expect(getTopStories$).toHaveBeenCalledTimes(1);
   });
 
   it('should set stories returned from storiesService.getTopStories$', () => {
     const items = [{ id: 1 } as Item];
-    const component = MockRender(StoriesComponent).point.componentInstance;
+    const fixture = MockRender(StoriesComponent);
+    const component = fixture.point.componentInstance;
 
     topStories$.next(items);
+    fixture.detectChanges();
 
     expect(component.stories).toEqual(items);
   });
