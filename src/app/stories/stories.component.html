@@ -1,7 +1,7 @@
 <ion-list>
   <ion-item *ngFor="let story of stories">
     <ion-label>
-      <h2><a href={{story.url}} target="_blank">{{story.title}}</a></h2>
+      <h2><a href={{story.url}} target="_blank">{{story.title}}</a><span class="domain">({{story.url | domain}})</span></h2>
     </ion-label>
   </ion-item>
 </ion-list>
