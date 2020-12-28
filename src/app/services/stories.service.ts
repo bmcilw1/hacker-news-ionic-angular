@@ -21,6 +21,10 @@ export class StoriesService {
     return this.httpClient.get<Array<number>>(url).pipe(retry(2));
   }
 
+  private getJSDateFromUnixTimestamp(ts: number) {
+    return new Date(ts * 1000);
+  }
+
   public getItemById$(itemId: number): Observable<Item> {
     const url = `${this.itemUrl}/${itemId + this.jsonUrlSpecifier}`;
     return this.httpClient.get<Item>(url).pipe(
@@ -28,7 +32,7 @@ export class StoriesService {
       map(item => {
         return {
           ...item,
-          time: new Date(item.time as unknown as number * 1000)
+          time: this.getJSDateFromUnixTimestamp(item.time as unknown as number)
         };
       })
     );
