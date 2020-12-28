@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Item } from 'src/app/models/item.type';
 import { Observable, forkJoin } from 'rxjs';
-import { retry, switchMap } from 'rxjs/operators';
+import { map, retry, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -23,7 +23,15 @@ export class StoriesService {
 
   public getItemById$(itemId: number): Observable<Item> {
     const url = `${this.itemUrl}/${itemId + this.jsonUrlSpecifier}`;
-    return this.httpClient.get<Item>(url).pipe(retry(2));
+    return this.httpClient.get<Item>(url).pipe(
+      retry(2),
+      map(item => {
+        return {
+          ...item,
+          time: new Date(item.time as unknown as number * 1000)
+        };
+      })
+    );
   }
 
   public getTopStories$(limitTopNStories: number = 20): Observable<Array<Item>> {
