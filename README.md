@@ -1,6 +1,8 @@
 # hacker-news-ionic-angular
 
-This is an ongoing implementation of [Hacker News](https://news.ycombinator.com/) using Ionic, Angular flavor.
+This is an ongoing implementation of [Hacker News](https://news.ycombinator.com/) using Ionic, Angular flavor. This project is to showcase best-practices and common use-cases of included technologies.
+
+The API is documented [here](https://github.com/HackerNews/API). Naming of data models and data access patterns are taken from there. A real production API would likely provide additional data endpoints to simplify client-side data access.
 
 ## Getting started
 
