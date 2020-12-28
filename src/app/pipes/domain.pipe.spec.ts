@@ -9,14 +9,21 @@ describe('DomainPipe', () => {
   it('when passed a domain with http removes prefix', () => {
     const pipe = new DomainPipe();
 
-    var result = pipe.transform(`http://www.example.com`)
+    var result = pipe.transform(`http://example.com`)
     expect(result).toBe(`example.com`);
   });
 
   it('when passed a domain with https removes prefix', () => {
     const pipe = new DomainPipe();
 
-    var result = pipe.transform(`https://www.example.com`)
+    var result = pipe.transform(`https://example.com`)
+    expect(result).toBe(`example.com`);
+  });
+
+  it('when passed a domain with www removes prefix', () => {
+    const pipe = new DomainPipe();
+
+    var result = pipe.transform(`http://www.example.com`)
     expect(result).toBe(`example.com`);
   });
 
