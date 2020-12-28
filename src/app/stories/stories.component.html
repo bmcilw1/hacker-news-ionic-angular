@@ -1,3 +1,7 @@
-<div>
-  <p *ngFor="let story of stories">{{story.title}}</p>
-</div>
+<ion-list>
+  <ion-item *ngFor="let story of stories">
+    <ion-label>
+      <h2><a href={{story.url}} target="_blank">{{story.title}}</a></h2>
+    </ion-label>
+  </ion-item>
+</ion-list>
