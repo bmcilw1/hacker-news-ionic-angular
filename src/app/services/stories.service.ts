@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Item } from 'src/app/models/item.type';
 import { Observable, forkJoin } from 'rxjs';
 import { retry, switchMap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
