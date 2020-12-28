@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Item } from '../models/item.type';
-import { StoriesService } from '../services/stories/stories.service';
+import { StoriesService } from '../services/stories.service';
 
 @Component({
   selector: 'app-stories',

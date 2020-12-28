@@ -26,7 +26,7 @@ export class StoriesService {
     return this.httpClient.get<Item>(url).pipe(retry(2));
   }
 
-  public getTopStories$(limitTopNStories: number = 10): Observable<Array<Item>> {
+  public getTopStories$(limitTopNStories: number = 20): Observable<Array<Item>> {
     return this.getTopStoryIds$(limitTopNStories).pipe(
       switchMap(ids =>
         forkJoin(

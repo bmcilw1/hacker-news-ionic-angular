@@ -2,7 +2,7 @@ import { MockBuilder, MockInstance, MockRender, MockReset } from 'ng-mocks';
 import { EMPTY, Subject } from 'rxjs';
 import { Item } from '../models/item.type';
 
-import { StoriesService } from '../services/stories/stories.service';
+import { StoriesService } from '../services/stories.service';
 
 import { StoriesComponent } from './stories.component';
 import { StoriesComponentModule } from './stories.module';
