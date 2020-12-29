@@ -7,8 +7,8 @@ describe('new App', () => {
     page = new AppPage();
   });
 
-  it('should be blank', () => {
+  it('should contain header text', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toContain('Lorem ipsum dolor sit amet');
+    expect(page.getHeaderText()).toContain('Hacker News Ionic Angular');
   });
 });
