@@ -1,10 +1,10 @@
 /// <reference types="Cypress" />
 
 describe('Home Page', () => {
-    it('should display the app name on the home page', () => {
+    it('should display the title on the home page', () => {
         cy.visit('/');
 
-        cy.get('app-root ion-header')
-            .should('contain.text', 'Hacker News Ionic Angular');
+        cy.get('ion-title').contains('Hacker News Ionic Angular')
+            .should('be.visible');
     });
 });
