@@ -14,9 +14,9 @@ The API is documented [here](https://github.com/HackerNews/API). Naming of data 
 
 ## Running the project
 
-* Run with `ionic serve`
+* Run with `npm start`
 
 ## Running tests
 
 * Run unit tests with `npm run test`
-* Run end to end tests with `npm run e2e`
+* Run end to end tests by first starting the server with `npm start` and then running `npm run e2e` in a separate terminal.
