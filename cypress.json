@@ -6,5 +6,5 @@
     "supportFile": "e2e/support/index.ts",
     "screenshotsFolder": "output/e2e/screenshots",
     "videosFolder": "output/e2e/videos",
-    "baseUrl": "http://localhost:4200"
+    "baseUrl": "http://localhost:8100"
 }
