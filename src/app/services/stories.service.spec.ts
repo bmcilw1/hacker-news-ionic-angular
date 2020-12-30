@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { StoriesService } from './stories.service';
-import { Item } from 'src/app/models/item.type';
+import { Item } from '../models/item.type';
 
 describe('StoriesService', () => {
   let service: StoriesService;
