@@ -87,12 +87,12 @@ describe('StoriesService', () => {
     service.getTopStories$(n).subscribe();
 
     const reqTopStories = httpMock.expectOne(`${service.topStoriesUrl + service.jsonUrlSpecifier}?${service.limitToFirstUrlSpecifier + n}`);
-    expect(reqTopStories.request.method).toBe("GET");
+    expect(reqTopStories.request.method).toBe('GET');
     reqTopStories.flush(items.map(i => i.id));
 
     items.forEach(item => {
       const reqIdToItem = httpMock.expectOne(`${service.itemUrl}/${item.id + service.jsonUrlSpecifier}`);
-      expect(reqIdToItem.request.method).toBe("GET");
+      expect(reqIdToItem.request.method).toBe('GET');
       reqIdToItem.flush(item);
     });
   });

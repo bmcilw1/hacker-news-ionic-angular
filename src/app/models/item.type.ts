@@ -16,4 +16,4 @@ export interface Item {
     title: HTMLElement;
     parts: Array<number>;
     descendants: number;
-};
+}
