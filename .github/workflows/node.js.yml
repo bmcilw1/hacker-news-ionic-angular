@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,27 +18,47 @@ jobs:
         node-version: [15.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
 
-    - name: npm ci and npm run build
-      run: |
-        npm ci
-        npm run build:ci
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install Ionic dependencies
-      run: |
-        npm install -g @ionic/cli
-        npm install -g cordova-res
-    
-    - name: npm lint
-      run: npm run lint
+      - name: npm ci
+        run: npm ci
 
-    - name: npm test:ci
-      run: npm run test:ci
+      - name: npm lint
+        run: npm run lint
 
-    - name: e2e tests
-      run: npm run e2e:ci
+      - name: npm test:ci
+        run: npm run test:ci
+
+  e2e:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: npm ci
+        run: npm ci
+
+      - name: Install Ionic dependencies
+        run: |
+          npm install -g @ionic/cli
+          npm install -g cordova-res
+
+      - name: npm run build:ci
+        run: npm run build:ci
+
+      - name: e2e tests
+        run: npm run e2e:ci
