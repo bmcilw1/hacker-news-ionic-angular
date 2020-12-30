@@ -1,6 +1,6 @@
 # hacker-news-ionic-angular
 
-This is an ongoing implementation of [Hacker News](https://news.ycombinator.com/) using Ionic, Angular flavor. This project is to showcase best-practices and common use-cases of included technologies.
+This is an ongoing implementation of [Hacker News](https://news.ycombinator.com/) using Ionic, Angular flavor. This project is to showcase best-practices and common use-cases of included technologies. For testing it uses [ng-mocks](https://ng-mocks.github.io/) and [Cypress](https://www.cypress.io/).
 
 The API is documented [here](https://github.com/HackerNews/API). Naming of data models and data access patterns are taken from there. A real production API would likely provide additional data endpoints to simplify client-side data access.
 
@@ -14,9 +14,9 @@ The API is documented [here](https://github.com/HackerNews/API). Naming of data 
 
 ## Running the project
 
-* Run with `ionic serve`
+* Run with `npm start`
 
 ## Running tests
 
 * Run unit tests with `npm run test`
-* Run end to end tests with `npm run e2e`
+* Run end to end tests by first starting the server with `npm start` and then running `npm run e2e` in a separate terminal.
