@@ -10,7 +10,7 @@ on:
     branches: [master]
 
 jobs:
-  install-packages:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,6 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -36,7 +37,43 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: npm ci and npm run build
+      - name: npm ci
+        run: npm ci
+
+      - name: npm lint
+        run: npm run lint
+
+      - name: npm test:ci
+        run: npm run test:ci
+
+  e2e:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: npm ci
         run: npm ci
 
       - name: Install Ionic dependencies
@@ -44,42 +81,8 @@ jobs:
           npm install -g @ionic/cli
           npm install -g cordova-res
 
-  build:
-    needs: install-packages
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
       - name: npm run build:ci
         run: npm run build:ci
 
-  lint:
-    needs: install-packages
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: npm lint
-        run: npm run lint
-
-  test:
-    needs: install-packages
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: npm test:ci
-        run: npm run test:ci
-
-  e2e:
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
       - name: e2e tests
         run: npm run e2e:ci
