@@ -30,10 +30,13 @@ export class StoriesService {
     return this.httpClient.get<Item>(url).pipe(
       retry(2),
       map(item => {
-        return {
-          ...item,
-          time: this.getJSDateFromUnixTimestamp(item.time as unknown as number)
-        };
+        if (item.time)
+          return {
+            ...item,
+            time: this.getJSDateFromUnixTimestamp(item.time as unknown as number)
+          };
+        else
+          return item;
       })
     );
   }
