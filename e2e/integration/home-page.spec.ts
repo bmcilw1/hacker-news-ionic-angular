@@ -2,8 +2,8 @@
 
 describe('Home Page', () => {
     beforeEach(() => {
-        cy.intercept('https://hacker-news.firebaseio.com/v0/topstories.json', { fixture: 'topstories.json' })
-        cy.intercept('https://hacker-news.firebaseio.com/v0/item/*', { fixture: 'story.json' })
+        cy.intercept('https://hacker-news.firebaseio.com/v0/topstories.json', { fixture: 'topstories.json' });
+        cy.intercept('https://hacker-news.firebaseio.com/v0/item/*', { fixture: 'story.json' });
     });
 
     it('should display the title on the home page', () => {
