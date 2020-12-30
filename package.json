@@ -9,7 +9,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ionic serve & cypress open"
+    "e2e": "cypress open"
   },
   "private": true,
   "dependencies": {
