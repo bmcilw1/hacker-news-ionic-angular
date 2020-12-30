@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Item } from '../models/item.type';
 import { StoriesService } from '../services/stories.service';
@@ -8,7 +8,7 @@ import { StoriesService } from '../services/stories.service';
   templateUrl: './stories.component.html',
   styleUrls: ['./stories.component.scss'],
 })
-export class StoriesComponent implements OnInit {
+export class StoriesComponent implements OnInit, OnDestroy {
   stories: Array<Item>;
   topStoriesSubscription: Subscription;
 

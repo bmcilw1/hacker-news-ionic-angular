@@ -1,9 +1,9 @@
-import { Url } from "url";
+import { Url } from 'url';
 
 export interface Item {
     id: number,
     deleted: boolean,
-    type: "job" | "story" | "comment" | "poll" | "pollopt",
+    type: 'job' | 'story' | 'comment' | 'poll' | 'pollopt',
     by: string,
     time: Date,
     text: HTMLDocument,
