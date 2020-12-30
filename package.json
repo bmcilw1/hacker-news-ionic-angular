@@ -14,7 +14,7 @@
     "test:ci": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
     "e2e:ci": "start-server-and-test start http://localhost:8100 e2e"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/common": "~10.0.0",
     "@angular/core": "~10.0.0",
