@@ -29,6 +29,11 @@ jobs:
       run: |
         npm ci
         npm run build:ci
+
+    - name: Install Ionic dependencies
+      run: |
+        npm install -g @ionic/cli
+        npm install -g cordova-res
     
     - name: npm lint
       run: npm run lint
