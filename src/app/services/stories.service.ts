@@ -8,11 +8,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StoriesService {
-  public baseUrl: string = `https://hacker-news.firebaseio.com/v0`;
-  public topStoriesUrl: string = `${this.baseUrl}/topstories`;
-  public itemUrl: string = `${this.baseUrl}/item`;
-  public limitToFirstUrlSpecifier: string = `orderBy="$key"&limitToFirst=`;
-  public jsonUrlSpecifier: string = `.json`;
+  public baseUrl = `https://hacker-news.firebaseio.com/v0`;
+  public topStoriesUrl = `${this.baseUrl}/topstories`;
+  public itemUrl = `${this.baseUrl}/item`;
+  public limitToFirstUrlSpecifier = `orderBy="$key"&limitToFirst=`;
+  public jsonUrlSpecifier = `.json`;
 
   constructor(private httpClient: HttpClient) { }
 
