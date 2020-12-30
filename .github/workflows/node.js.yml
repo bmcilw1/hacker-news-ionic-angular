@@ -38,6 +38,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: npm ci
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: npm lint
@@ -74,6 +75,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: npm ci
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Install Ionic dependencies
