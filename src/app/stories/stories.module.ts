@@ -1,4 +1,4 @@
-import { NgModule, Pipe } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoriesComponent } from './stories.component';
 import { IonicModule } from '@ionic/angular';
@@ -9,7 +9,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
   name: 'timeAgo',
   pure: false
 })
-export class TimeAgoExtendsPipe extends TimeAgoPipe {}
+export class TimeAgoExtendsPipe extends TimeAgoPipe implements PipeTransform { }
 
 @NgModule({
   imports: [CommonModule, IonicModule],
