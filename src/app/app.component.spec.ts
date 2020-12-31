@@ -1,50 +1,43 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
-
+import { AppComponent } from './app.component';
+import { MockBuilder, MockInstance, MockRender, MockReset } from 'ng-mocks';
+import { AppModule } from './app.module';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { AppComponent } from './app.component';
-
 describe('AppComponent', () => {
+  let platformReady = Promise.resolve();
 
-  let statusBarSpy;
-  let splashScreenSpy;
-  let platformReadySpy;
-  let platformSpy;
+  beforeEach(() =>
+    MockBuilder(AppComponent, AppModule)
+      .mock(Platform, {
+        ready: () => platformReady
+      } as unknown as Platform)
+  );
 
-  beforeEach(async(() => {
-    statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
-    splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
-    platformReadySpy = Promise.resolve();
-    platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
-
-    TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: StatusBar, useValue: statusBarSpy },
-        { provide: SplashScreen, useValue: splashScreenSpy },
-        { provide: Platform, useValue: platformSpy },
-      ],
-    }).compileComponents();
-  }));
+  afterEach(MockReset);
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    const component = MockRender(AppComponent).point.componentInstance;
+    expect(component).toBeTruthy();
   });
 
   it('should initialize the app', async () => {
-    TestBed.createComponent(AppComponent);
-    expect(platformSpy.ready).toHaveBeenCalled();
-    await platformReadySpy;
-    expect(statusBarSpy.styleDefault).toHaveBeenCalled();
-    expect(splashScreenSpy.hide).toHaveBeenCalled();
+    const hide = jasmine.createSpy('hideSpy');
+    const styleDefault = jasmine.createSpy('styleDefaultSpy');
+
+    MockInstance(StatusBar, () => ({
+      styleDefault
+    }));
+
+    MockInstance(SplashScreen, () => ({
+      hide
+    }));
+
+    const fixture = MockRender(AppComponent);
+    await platformReady;
+
+    expect(styleDefault).toHaveBeenCalled();
+    expect(hide).toHaveBeenCalled();
   });
-
-  // TODO: add more tests!
-
 });
