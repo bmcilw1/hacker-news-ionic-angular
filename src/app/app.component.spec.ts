@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 describe('AppComponent', () => {
-  let platformReady = Promise.resolve();
+  const platformReady = Promise.resolve();
 
   beforeEach(() =>
     MockBuilder(AppComponent, AppModule)
