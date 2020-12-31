@@ -27,7 +27,7 @@ describe('StoriesComponent', () => {
   });
 
   it('should call storiesService.getTopStories$ once on init', () => {
-    const getTopStories$ = jasmine.createSpy().and.returnValue(EMPTY);
+    const getTopStories$ = jasmine.createSpy('getTopStories$Spy').and.returnValue(EMPTY);
     MockInstance(StoriesService, () => ({
       getTopStories$,
     }));
